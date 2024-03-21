@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Attack Analysis</title>
+</head>
+<body>
+    <h1>Heart Attack Analysis</h1>
+    <form action="/predict" method="post">
+        <label for="Sex">Sex:</label><br>
+        <input type="radio" id="male" name="sex" value="1" required>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="sex" value="0">
+        <label for="female">Female</label><br><br>
+        
+        <label for="general_health">General Health:</label><br>
+        <input type="number" id="general_health" name="general_health" required><br><br>
+        
+        <label for="physical_health_days">Physical Health Days:</label><br>
+        <input type="number" id="physical_health_days" name="physical_health_days" required><br><br>
+        
+        <label for="mental_health_days">Mental Health Days:</label><br>
+        <input type="number" id="mental_health_days" name="mental_health_days" required><br><br>
+        
+        <label for="last_checkup_time">Last Checkup Time:</label><br>
+        <input type="datetime-local" id="last_checkup_time" name="last_checkup_time" required><br><br>
+        
+        <label for="physical_activities">Physical Activities (hours per week):</label><br>
+        <input type="number" id="physical_activities" name="physical_activities" required><br><br>
+        
+        <label for="sleep_hours">Sleep Hours:</label><br>
+        <input type="number" id="sleep_hours" name="sleep_hours" required><br><br>
+        
+        <label for="removed_teeth">Removed Teeth:</label><br>
+        <input type="number" id="removed_teeth" name="removed_teeth" required><br><br>
+        
+        <label for="had_heart_attack">Had Heart Attack:</label><br>
+        <input type="number" id="had_heart_attack" name="had_heart_attack" required><br><br>
+        
+        <label for="had_angina">Had Angina:</label><br>
+        <input type="number" id="had_angina" name="had_angina" required><br><br>
+        
+        <label for="had_stroke">Had Stroke:</label><br>
+        <input type="number" id="had_stroke" name="had_stroke" required><br><br>
+        
+        <label for="had_copd">Had COPD:</label><br>
+        <input type="number" id="had_copd" name="had_copd" required><br><br>
+        
+        <label for="had_kidney_disease">Had Kidney Disease:</label><br>
+        <input type="number" id="had_kidney_disease" name="had_kidney_disease" required><br><br>
+        
+        <label for="had_arthritis">Had Arthritis:</label><br>
+        <input type="number" id="had_arthritis" name="had_arthritis" required><br><br>
+        
+        <label for="had_diabetes">Had Diabetes:</label><br>
+        <input type="number" id="had_diabetes" name="had_diabetes" required><br><br>
+        
+        <label for="deaf_or_hard_of_hearing">Deaf or Hard of Hearing:</label><br>
+        <input type="number" id="deaf_or_hard_of_hearing" name="deaf_or_hard_of_hearing" required><br><br>
+        
+        <label for="blind_or_vision_difficulty">Blind or Vision Difficulty:</label><br>
+        <input type="number" id="blind_or_vision_difficulty" name="blind_or_vision_difficulty" required><br><br>
+        
+        <label for="difficulty_concentrating">Difficulty Concentrating:</label><br>
+        <input type="number" id="difficulty_concentrating" name="difficulty_concentrating" required><br><br>
+        
+        <label for="difficulty_walking">Difficulty Walking:</label><br>
+        <input type="number" id="difficulty_walking" name="difficulty_walking" required><br><br>
+        
+        <label for="difficulty_dressing_bathing">Difficulty Dressing/Bathing:</label><br>
+        <input type="number" id="difficulty_dressing_bathing" name="difficulty_dressing_bathing" required><br><br>
+        
+        <label for="difficulty_errands">Difficulty Errands:</label><br>
+        <input type="number" id="difficulty_errands" name="difficulty_errands" required><br><br>
+        
+        <label for="smoker_status">Smoker Status:</label><br>
+        <input type="number" id="smoker_status" name="smoker_status" required><br><br>
+        
+        <label for="chest_scan">Chest Scan:</label><br>
+        <input type="number" id="chest_scan" name="chest_scan" required><br><br>
+        
+        <label for="age_category">Age Category:</label><br>
+        <input type="number" id="age_category" name="age_category" required><br><br>
+        
+        <label for="bmi">BMI:</label><br>
+        <input type="number" id="bmi" name="bmi" required><br><br>
+        
+        <label for="alcohol_drinkers">Alcohol Drinkers:</label><br>
+        <input type="number" id="alcohol_drinkers" name="alcohol_drinkers" required><br><br>
+        
+        <label for="pneumovax_ever">Pneumovax Ever:</label><br>
+        <input type="number" id="pneumovax_ever" name="pneumovax_ever" required><br><br>
+        
+        <!-- Add other input fields as per your requirements -->
+        
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
