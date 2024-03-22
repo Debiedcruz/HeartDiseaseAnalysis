@@ -6,7 +6,12 @@
     <title>Heart Attack Analysis Result</title>
 </head>
 <body>
-    <h1>Heart Attack Analysis Result</h1>
-    <p>The probability of having a heart attack is: {{ percentage }}%</p>
-   </body>
+    <h2>Prediction Result</h2>
+    {% if prediction == 1 %}
+        <p class="positive">Heart Disease Prediction: Positive</p>
+    {% else %}
+        <p class="negative">Heart Disease Prediction: Negative</p>
+    {% endif %}
+</body>
+
 </html>

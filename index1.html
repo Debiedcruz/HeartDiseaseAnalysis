@@ -7,92 +7,174 @@
 </head>
 <body>
     <h1>Heart Attack Analysis</h1>
-    <form action="/predict" method="post">
-        <label for="Sex">Sex:</label><br>
-        <input type="radio" id="male" name="sex" value="1" required>
-        <label for="male">Male</label><br>
-        <input type="radio" id="female" name="sex" value="0">
-        <label for="female">Female</label><br><br>
+     <form action="{{ url_for('predict') }}" method="post">
+      <label for="Sex">Sex:</label><br>
+<select id="Sex" name="Sex" required>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+</select><br><br>
+
+
         
-        <label for="general_health">General Health:</label><br>
-        <input type="number" id="general_health" name="general_health" required><br><br>
+      <label for="GeneralHealth">General Health:</label><br>
+<select id="GeneralHealth" name="GeneralHealth" required>
+  <option value="Good">Good</option>
+  <option value="Excellent">Excellent</option>
+  <option value="Poor">Poor</option>
+  <option value="Very good">Very good</option>
+  <option value="Fair">Fair</option>
+</select><br><br>
+
+        <label for="PhysicalHealthDays">Physical Health Days:</label><br>
+        <input type="number" id="PhysicalHealthDays" name="PhysicalHealthDays" required><br><br>
         
-        <label for="physical_health_days">Physical Health Days:</label><br>
-        <input type="number" id="physical_health_days" name="physical_health_days" required><br><br>
+        <label for="MentalHealthDays">Mental Health Days:</label><br>
+        <input type="number" id="MentalHealthDays" name="MentalHealthDays" required><br><br>
         
-        <label for="mental_health_days">Mental Health Days:</label><br>
-        <input type="number" id="mental_health_days" name="mental_health_days" required><br><br>
+        <label for="LastCheckupTime">Last Checkup Time:</label><br>
+<select id="LastCheckupTime" name="LastCheckupTime" required>
+  <option value="Within past year (anytime less than 12 months ago)">Within past year (anytime less than 12 months ago)</option>
+  <option value="Within past 2 years (1 year but less than 2 years ago)">Within past 2 years (1 year but less than 2 years ago)</option>
+  <option value="Within past 5 years (2 years but less than 5 years ago)">Within past 5 years (2 years but less than 5 years ago)</option>
+  <option value="5 or more years ago">5 or more years ago</option>
+</select><br><br>
+
+        <label for="PhysicalActivities">Physical Activities (hours per week):</label><br>
+<select id="PhysicalActivities" name="PhysicalActivities" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+        <label for="SleepHours">Sleep Hours:</label><br>
+        <input type="number" id="SleepHours" name="SleepHours" required><br><br>
         
-        <label for="last_checkup_time">Last Checkup Time:</label><br>
-        <input type="datetime-local" id="last_checkup_time" name="last_checkup_time" required><br><br>
+        <label for="RemovedTeeth">Removed Teeth:</label><br>
+<select id="RemovedTeeth" name="RemovedTeeth" required>
+  <option value="None of them">None of them</option>
+  <option value="1 to 5">1 to 5</option>
+  <option value="6 or more, but not all">6 or more, but not all</option>
+  <option value="All">All</option>
+</select><br><br>
+
+
+<label for="HadAngina">Had Angina:</label><br>
+<select id="HadAngina" name="HadAngina" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+        <label for="HadStroke">Had Stroke:</label><br>
+<select id="HadStroke" name="HadStroke" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="HadCOPD">Had COPD:</label><br>
+<select id="HadCOPD" name="HadCOPD" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="HadKidneyDisease">Had Kidney Disease:</label><br>
+<select id="HadKidneyDisease" name="HadKidneyDisease" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+       <label for="HadArthritis">Had Arthritis:</label><br>
+<select id="HadArthritis" name="HadArthritis" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="HadDiabetes">Had Diabetes:</label><br>
+<select id="HadDiabetes" name="HadDiabetes" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="DeafOrHardOfHearing">Deaf or Hard of Hearing:</label><br>
+<select id="DeafOrHardOfHearing" name="DeafOrHardOfHearing" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="BlindOrVisionDifficulty">Blind or Vision Difficulty:</label><br>
+<select id="BlindOrVisionDifficulty" name="BlindOrVisionDifficulty" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="DifficultyConcentrating">Difficulty Concentrating:</label><br>
+<select id="DifficultyConcentrating" name="DifficultyConcentrating" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="DifficultyWalking">Difficulty Walking:</label><br>
+<select id="DifficultyWalking" name="DifficultyWalking" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
         
-        <label for="physical_activities">Physical Activities (hours per week):</label><br>
-        <input type="number" id="physical_activities" name="physical_activities" required><br><br>
+       <label for="DifficultyDressingBathing">Difficulty Dressing/Bathing:</label><br>
+<select id="DifficultyDressingBathing" name="DifficultyDressingBathing" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+<label for="DifficultyErrands">Difficulty Errands:</label><br>
+<select id="DifficultyErrands" name="DifficultyErrands" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+
+        <label for="SmokerStatus">Smoker Status:</label><br>
+<select id="SmokerStatus" name="SmokerStatus" required>
+  <option value="Current smoker - now smokes every day">Current smoker - now smokes every day</option>
+  <option value="Never smoked">Never smoked</option>
+  <option value="Former smoker">Former smoker</option>
+  <option value="Current smoker - now smokes some days">Current smoker - now smokes some days</option>
+</select><br><br>
+
+        <label for="ChestScan">Chest Scan:</label><br>
+<select id="ChestScan" name="ChestScan" required>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select><br><br>
+
+        <label for="AgeCategory">Age Category:</label><br>
+<select id="AgeCategory" name="AgeCategory" required>
+  <option value="Age 18 to 24">Age 18 to 24</option>
+  <option value="Age 25 to 29">Age 25 to 29</option>
+  <option value="Age 30 to 34">Age 30 to 34</option>
+  <option value="Age 35 to 39">Age 35 to 39</option>
+  <option value="Age 40 to 44">Age 40 to 44</option>
+  <option value="Age 45 to 49">Age 45 to 49</option>
+  <option value="Age 50 to 54">Age 50 to 54</option>
+  <option value="Age 60 to 64">Age 60 to 64</option>
+  <option value="Age 65 to 69">Age 65 to 69</option>
+  <option value="Age 70 to 74">Age 70 to 74</option>
+  <option value="Age 75 to 79">Age 75 to 79</option>
+  <option value="Age 80 or older">Age 80 or older</option>
+</select><br><br>
+
+        <label for="BMI">BMI:</label><br>
+        <input type="number" id="BMI" name="BMI" required><br><br>
         
-        <label for="sleep_hours">Sleep Hours:</label><br>
-        <input type="number" id="sleep_hours" name="sleep_hours" required><br><br>
-        
-        <label for="removed_teeth">Removed Teeth:</label><br>
-        <input type="number" id="removed_teeth" name="removed_teeth" required><br><br>
-        
-        <label for="had_heart_attack">Had Heart Attack:</label><br>
-        <input type="number" id="had_heart_attack" name="had_heart_attack" required><br><br>
-        
-        <label for="had_angina">Had Angina:</label><br>
-        <input type="number" id="had_angina" name="had_angina" required><br><br>
-        
-        <label for="had_stroke">Had Stroke:</label><br>
-        <input type="number" id="had_stroke" name="had_stroke" required><br><br>
-        
-        <label for="had_copd">Had COPD:</label><br>
-        <input type="number" id="had_copd" name="had_copd" required><br><br>
-        
-        <label for="had_kidney_disease">Had Kidney Disease:</label><br>
-        <input type="number" id="had_kidney_disease" name="had_kidney_disease" required><br><br>
-        
-        <label for="had_arthritis">Had Arthritis:</label><br>
-        <input type="number" id="had_arthritis" name="had_arthritis" required><br><br>
-        
-        <label for="had_diabetes">Had Diabetes:</label><br>
-        <input type="number" id="had_diabetes" name="had_diabetes" required><br><br>
-        
-        <label for="deaf_or_hard_of_hearing">Deaf or Hard of Hearing:</label><br>
-        <input type="number" id="deaf_or_hard_of_hearing" name="deaf_or_hard_of_hearing" required><br><br>
-        
-        <label for="blind_or_vision_difficulty">Blind or Vision Difficulty:</label><br>
-        <input type="number" id="blind_or_vision_difficulty" name="blind_or_vision_difficulty" required><br><br>
-        
-        <label for="difficulty_concentrating">Difficulty Concentrating:</label><br>
-        <input type="number" id="difficulty_concentrating" name="difficulty_concentrating" required><br><br>
-        
-        <label for="difficulty_walking">Difficulty Walking:</label><br>
-        <input type="number" id="difficulty_walking" name="difficulty_walking" required><br><br>
-        
-        <label for="difficulty_dressing_bathing">Difficulty Dressing/Bathing:</label><br>
-        <input type="number" id="difficulty_dressing_bathing" name="difficulty_dressing_bathing" required><br><br>
-        
-        <label for="difficulty_errands">Difficulty Errands:</label><br>
-        <input type="number" id="difficulty_errands" name="difficulty_errands" required><br><br>
-        
-        <label for="smoker_status">Smoker Status:</label><br>
-        <input type="number" id="smoker_status" name="smoker_status" required><br><br>
-        
-        <label for="chest_scan">Chest Scan:</label><br>
-        <input type="number" id="chest_scan" name="chest_scan" required><br><br>
-        
-        <label for="age_category">Age Category:</label><br>
-        <input type="number" id="age_category" name="age_category" required><br><br>
-        
-        <label for="bmi">BMI:</label><br>
-        <input type="number" id="bmi" name="bmi" required><br><br>
-        
-        <label for="alcohol_drinkers">Alcohol Drinkers:</label><br>
-        <input type="number" id="alcohol_drinkers" name="alcohol_drinkers" required><br><br>
-        
-        <label for="pneumovax_ever">Pneumovax Ever:</label><br>
-        <input type="number" id="pneumovax_ever" name="pneumovax_ever" required><br><br>
-        
-        <!-- Add other input fields as per your requirements -->
+        <label for="AlcoholDrinkers">Alcohol Drinkers:</label><br>
+<select id="AlcoholDrinkers" name="AlcoholDrinkers" required>
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select><br><br>
+
+<label for="PneumoVaxEver">Pneumovax Ever:</label><br>
+<select id="PneumoVaxEver" name="PneumoVaxEver" required>
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select><br><br>
+
         
         <button type="submit">Predict</button>
     </form>
