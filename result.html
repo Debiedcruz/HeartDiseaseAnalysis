@@ -2,16 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Attack Analysis Result</title>
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Light gray background */
+            color: #333; /* Dark gray text color */
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            color: #007bff; /* Blue header color */
+            text-align: center;
+        }
+        .result-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for card effect */
+        }
+        .positive {
+            color: #4caf50; /* Light green color for positive prediction */
+            background-color: #d4edda; /* Light green background */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .negative {
+            color: #dc3545; /* Red color for negative prediction */
+            background-color: #f8d7da; /* Light red background */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .prediction-info {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Prediction Result</h2>
-    {% if prediction == 1 %}
-        <p class="positive">Heart Disease Prediction: Positive</p>
-    {% else %}
-        <p class="negative">Heart Disease Prediction: Negative</p>
-    {% endif %}
+    <div class="result-container">
+        <h2>Prediction Result</h2>
+        <div class="prediction-info">
+            {% if prediction == 1 %}
+                <p class="positive">Prediction: Positive</p>
+            {% else %}
+                <p class="negative">Prediction: Negative</p>
+            {% endif %}
+            <p>The heart disease risk percentage based on your lifestyle and health factors is: {{ prediction_probability }} %</p>
+        </div>
+    </div>
 </body>
-
 </html>
