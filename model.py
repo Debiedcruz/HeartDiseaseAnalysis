@@ -146,14 +146,10 @@ def logistic_regression_model(x_train, x_test, y_train, y_test, threshold=0.3):
 
 def main():
     df = read_csv("heartDisease.csv")
-    df1 = read_csv("Heartdisease1.csv")
 
     # Preprocess the data
     rename_columns(df)
     df = encode_categorical_features(df)
-
-    rename_columns(df1)
-    df1 = encode_categorical_features(df1)
 
     x = df.drop(columns=['HadHeartAttack'])
     y = df['HadHeartAttack']
@@ -169,12 +165,8 @@ def main():
     x = df.drop(columns=['HadHeartAttack'])
     y = df['HadHeartAttack']
 
-
-    # Train the logistic regression model
+    """Train the logistic regression model"""
     model = LogisticRegression()
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-    model.fit(x_train, y_train)
-
 
 
 #     %matplotlib inline
@@ -182,7 +174,7 @@ def main():
     warnings.filterwarnings('ignore')
     sns.set(style="darkgrid")
 
-       # Undersampling
+    """Undersampling"""
     print(df[target].value_counts())
 
 
@@ -205,39 +197,47 @@ def main():
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
     accuracy, conf_matrix, class_report, precision, recall, f1, auc_score, model = logistic_regression_model(x_train, x_test, y_train, y_test)
-
     print("Accuracy:", accuracy)
     print("Confusion Matrix:\n", conf_matrix)
     print("Classification Report:\n", class_report)
     print("F1 Score:", f1)
     print("AUC Score:", auc_score)
 
+    test_data = read_csv("Heartdisease1.csv")
+    rename_columns(test_data)
+    test_data = encode_categorical_features(test_data)
 
 
-    # Assuming df_predict is your new data for prediction
-    # Drop the 'HadHeartAttack' column if it exists
-    if 'HadHeartAttack' in df1.columns:
-        df_predict = df1.drop(columns=['HadHeartAttack'])
+   """ # Drop the 'HadHeartAttack' column if it exists"""
+    if 'HadHeartAttack' in test_data.columns:
+        df_predict = test_data.drop(columns=['HadHeartAttack'])
 
-        # Make predictions on the new data
+        """Make predictions on the new data"""
         new_predictions = model.predict(df_predict)
         prediction_scores = model.predict_proba(df_predict)
+        print(df_predict.iloc[0])
 
-        # Print the actual and predicted values
-        result_df = pd.DataFrame({'Actual': df1['HadHeartAttack'], 'Predicted': new_predictions})
 
-        # Compute accuracy score
-        accuracy = accuracy_score(df1['HadHeartAttack'], new_predictions)
+        """Print the actual and predicted values"""
+        result_df = pd.DataFrame({'Actual': test_data['HadHeartAttack'], 'Predicted': new_predictions})
+
+        """Compute accuracy score"""
+        accuracy = accuracy_score(test_data['HadHeartAttack'], new_predictions)
         print("Accuracy:", accuracy)
 
-        # Print the result dataframe
+        """Print the result dataframe"""
         print(result_df)
         print(prediction_scores)
 
-# Save the model, preprocessing steps, and renaming columns together
+        features_used = df.columns.tolist()
+
+        print("Features used in the model:")
+        for feature in features_used:
+          print(feature)
+
+    """Save the model, preprocessing steps, and renaming columns together'"""
     with open('heart_disease_model.pkl', 'wb') as f:
       pickle.dump((model), f)
-
 
 
 if __name__ == "__main__":

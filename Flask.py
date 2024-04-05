@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# Load the trained model from the pickle file
+"Load the trained model from the pickle file"
 with open('heart_disease_model.pkl', 'rb') as file:
     loaded_model = pickle.load(file)
 
@@ -12,6 +12,7 @@ with open('heart_disease_model.pkl', 'rb') as file:
 @app.route('/')
 def index():
     return render_template('index1.html')
+
 
 def encoded_features(form_data):
     encoded_features = {}
@@ -22,63 +23,64 @@ def encoded_features(form_data):
     encoded_features['BadPhysicalHealthDays'] = form_data.get('PhysicalHealthDays')
     encoded_features['BadMentalHealthDays'] = form_data.get('MentalHealthDays')
 
-    # Encode PhysicalActivities
+    "Encode PhysicalActivities"
     encoded_features['PhysicalActivities'] = 1 if form_data.get('PhysicalActivities', 'No') == 'Yes' else 0
 
     encoded_features['SleepHours'] = form_data.get('SleepHours')
 
-    # Encode HadAngina
+    "Encode HadAngina"
     encoded_features['HadAngina'] = 1 if form_data.get('HadAngina', 'No') == 'Yes' else 0
 
-    # Encode HadStroke
+    "Encode HadStroke"
     encoded_features['HadStroke'] = 1 if form_data.get('HadStroke', 'No') == 'Yes' else 0
 
-    # Encode HadCOPD
+    "Encode HadCOPD"
     encoded_features['HadCOPD'] = 1 if form_data.get('HadCOPD', 'No') == 'Yes' else 0
 
-    # Encode HadKidneyDisease
+    "Encode HadKidneyDisease"
     encoded_features['HadKidneyDisease'] = 1 if form_data.get('HadKidneyDisease', 'No') == 'Yes' else 0
 
-    # Encode HadArthritis
+    "Encode HadArthritis"
     encoded_features['HadArthritis'] = 1 if form_data.get('HadArthritis', 'No') == 'Yes' else 0
 
-    # Encode HadDiabetes
+    "Encode HadDiabetes"
     encoded_features['HadDiabetes'] = 1 if form_data.get('HadDiabetes', 'No') == 'Yes' else 0
 
-    # Encode DeafOrHardOfHearing
+    "Encode DeafOrHardOfHearing"
     encoded_features['DeafOrHardOfHearing'] = 1 if form_data.get('DeafOrHardOfHearing', 'No') == 'Yes' else 0
 
-    # Encode BlindOrVisionDifficulty
+    "Encode BlindOrVisionDifficulty"
     encoded_features['BlindOrVisionDifficulty'] = 1 if form_data.get('BlindOrVisionDifficulty', 'No') == 'Yes' else 0
 
-    # Encode DifficultyConcentrating
+    "Encode DifficultyConcentrating"
     encoded_features['DifficultyConcentrating'] = 1 if form_data.get('DifficultyConcentrating', 'No') == 'Yes' else 0
 
-    # Encode DifficultyWalking
+    "Encode DifficultyWalking"
     encoded_features['DifficultyWalking'] = 1 if form_data.get('DifficultyWalking', 'No') == 'Yes' else 0
 
-    # Encode DifficultyDressingBathing
+    "Encode DifficultyDressingBathing"
     encoded_features['DifficultyDressingBathing'] = 1 if form_data.get('DifficultyDressingBathing', 'No') == 'Yes' else 0
 
-    # Encode DifficultyErrands
+    "Encode DifficultyErrands"
     encoded_features['DifficultyErrands'] = 1 if form_data.get('DifficultyErrands', 'No') == 'Yes' else 0
 
-    # Encode ChestScan
+    "Encode ChestScan"
     encoded_features['ChestScan'] = 1 if form_data.get('ChestScan', 'No') == 'Yes' else 0
 
     encoded_features['BMI'] = form_data.get('BMI')
 
-    # Encode AlcoholDrinkers
+    "Encode AlcoholDrinkers"
     encoded_features['AlcoholDrinkers'] = form_data.get('AlcoholDrinkers')
 
     encoded_features['PneumoVaxEver'] = form_data.get('PneumoVaxEver')
 
     if 'GeneralHealth' in form_data:
-        # If "GeneralHealth_Excellent" is selected, encode it as 1, else encode as 0
+        "If 'GeneralHealth_Excellent' is selected, encode it as 1, else encode as 0"
         encoded_features['GeneralHealth_Excellent'] = 1 if form_data['GeneralHealth'] == 'GeneralHealth_Excellent' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['GeneralHealth_Excellent'] = 0
+
 
     if 'GeneralHealth' in form_data:
         # If "GeneralHealth_Fair" is selected, encode it as 1, else encode as 0
@@ -215,7 +217,7 @@ def encoded_features(form_data):
         encoded_features['AgeCategory_Age 30 to 34'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 35 to 39'] = 1 if form_data['AgeCategory'] == 'AgeCategory_Age 35 to 39' else 0
     else:
         # If not selected, encode as 0
@@ -225,35 +227,35 @@ def encoded_features(form_data):
         # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
         encoded_features['AgeCategory_Age 40 to 44'] = 1 if form_data['AgeCategory'] == 'AgeCategory_Age 40 to 44' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['AgeCategory_Age 40 to 44'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 45 to 49'] = 1 if form_data['AgeCategory'] == 'Yes' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['AgeCategory_Age 45 to 49'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 50 to 54'] = 1 if form_data['AgeCategory'] == 'Yes' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['AgeCategory_Age 50 to 54'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 55 to 59'] = 1 if form_data['AgeCategory'] == 'AgeCategory_Age 55 to 59' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['AgeCategory_Age 55 to 59'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 60 to 64'] = 1 if form_data['AgeCategory'] == 'AgeCategory_Age 60 to 64' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['AgeCategory_Age 60 to 64'] = 0
 
     if 'AgeCategory' in form_data:
@@ -264,14 +266,14 @@ def encoded_features(form_data):
         encoded_features['AgeCategory_Age 65 to 69'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 70 to 74'] = 1 if form_data['AgeCategory'] == 'AgeCategory_Age 70 to 74' else 0
     else:
-        # If not selected, encode as 0
+        "If not selected, encode as 0"
         encoded_features['AgeCategory_Age 70 to 74'] = 0
 
     if 'AgeCategory' in form_data:
-        # If the age category "Age 18 to 24" is selected, encode it as 1, else encode as 0
+        "If the age category Age 18 to 24 is selected, encode it as 1, else encode as 0"
         encoded_features['AgeCategory_Age 75 to 79'] = 1 if form_data['AgeCategory'] == 'AgeCategory_Age 75 to 79' else 0
     else:
         # If not selected, encode as 0
@@ -297,17 +299,17 @@ def predict():
         print("fff", form_data)
         encoded_feature = encoded_features(form_data)
 
-        # Print the encoded features
+        'Print the encoded features'
         print("Encoded Features:", encoded_feature)
 
-        # Create DataFrame
+        'Create DataFrame'
         data = pd.DataFrame([encoded_feature])
 
-        # Make predictions
+        'Make predictions'
         prediction = loaded_model.predict(data)
         print("Prediction:", prediction)
 
-        # Probability of positive outcome
+        'Probability of positive outcome'
         prediction_probability = [f'{prob:.2f}' for prob in loaded_model.predict_proba(data)[:, 1]]
 
         print("Prediction Probability:", prediction_probability)
