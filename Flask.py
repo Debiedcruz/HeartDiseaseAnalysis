@@ -11,7 +11,7 @@ with open('heart_disease_model.pkl', 'rb') as file:
 
 @app.route('/')
 def index():
-    return render_template('index1.html')
+    return render_template('index.html')
 
 
 def encoded_features(form_data):
@@ -22,6 +22,7 @@ def encoded_features(form_data):
 
     encoded_features['BadPhysicalHealthDays'] = form_data.get('PhysicalHealthDays')
     encoded_features['BadMentalHealthDays'] = form_data.get('MentalHealthDays')
+    print(type(encoded_features['BadMentalHealthDays']))
 
     "Encode PhysicalActivities"
     encoded_features['PhysicalActivities'] = 1 if form_data.get('PhysicalActivities', 'No') == 'Yes' else 0
@@ -80,7 +81,6 @@ def encoded_features(form_data):
     else:
         "If not selected, encode as 0"
         encoded_features['GeneralHealth_Excellent'] = 0
-
 
     if 'GeneralHealth' in form_data:
         # If "GeneralHealth_Fair" is selected, encode it as 1, else encode as 0
@@ -293,10 +293,9 @@ def encoded_features(form_data):
 def predict():
     if request.method == 'GET':
         # Render the form
-        return render_template('index1.html')
+        return render_template('index.html')
     else:
         form_data = request.form.to_dict()
-        print("fff", form_data)
         encoded_feature = encoded_features(form_data)
 
         'Print the encoded features'
@@ -310,7 +309,7 @@ def predict():
         print("Prediction:", prediction)
 
         'Probability of positive outcome'
-        prediction_probability = [f'{prob:.2f}' for prob in loaded_model.predict_proba(data)[:, 1]]
+        prediction_probability = [f'{prob*100:.0f}' for prob in loaded_model.predict_proba(data)[:, 1]]
 
         print("Prediction Probability:", prediction_probability)
 

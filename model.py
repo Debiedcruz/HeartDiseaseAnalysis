@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1k1yqgxHUhScnLhdMLRQIyN23d2nakGC1
 """
 
-# Commented out IPython magic to ensure Python compatibility.
 import pandas as pd
 import numpy as np
 import pickle
@@ -133,7 +132,15 @@ def logistic_regression_model(x_train, x_test, y_train, y_test, threshold=0.3):
     y_pred_prob = model.predict_proba(x_test)[:, 1]  # Probabilities of positive class
     y_pred = (y_pred_prob > threshold).astype(int)
 
-    "Evaluation metrics"
+    return model, y_pred, y_pred_prob  # Return trained model and predictions
+
+def save_model_with_preprocessing(model, filename):
+
+    with open(filename, 'wb') as f:
+        pickle.dump((model), f)
+
+def evaluate_model(y_test, y_pred, y_pred_prob):
+    """Evaluate the logistic regression model"""
     accuracy = accuracy_score(y_test, y_pred)
     conf_matrix = confusion_matrix(y_test, y_pred)
     class_report = classification_report(y_test, y_pred)
@@ -141,13 +148,13 @@ def logistic_regression_model(x_train, x_test, y_train, y_test, threshold=0.3):
     f1 = f1_score(y_test, y_pred)
     auc_score = roc_auc_score(y_test, y_pred_prob)
 
-    return accuracy, conf_matrix, class_report, precision, recall, f1, auc_score, model
+    return accuracy, conf_matrix, class_report, precision, recall, f1, auc_score
 
 
 def main():
     df = read_csv("heartDisease.csv")
 
-    # Preprocess the data
+    '''Preprocess the data'''
     rename_columns(df)
     df = encode_categorical_features(df)
 
@@ -165,80 +172,44 @@ def main():
     x = df.drop(columns=['HadHeartAttack'])
     y = df['HadHeartAttack']
 
-    """Train the logistic regression model"""
-    model = LogisticRegression()
-
-
-#     %matplotlib inline
-    rcParams['figure.figsize'] = 10, 6
-    warnings.filterwarnings('ignore')
-    sns.set(style="darkgrid")
-
-    """Undersampling"""
-    print(df[target].value_counts())
-
-
-    threshold_percentage = 2
-
-    minority_class_len = len(df[df[target] == 1])
-    undersampling_count = int(minority_class_len * threshold_percentage)
-    majority_class_indices = df[df[target] == 0].index
-    random_majority_indices = np.random.choice(majority_class_indices, undersampling_count, replace=False)
-
-    under_sample_indices = np.concatenate([df[df[target] == 1].index, random_majority_indices])
-
-    under_sample = df.loc[under_sample_indices]
-
-
-    print(under_sample[target].value_counts())
-
-    x = under_sample.loc[:, df.columns != target]
-    y = under_sample.loc[:, df.columns == target]
+    '''Split data into training and testing sets'''
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
-    accuracy, conf_matrix, class_report, precision, recall, f1, auc_score, model = logistic_regression_model(x_train, x_test, y_train, y_test)
+    '''Train the logistic regression model and get predictions'''
+    model, y_pred, y_pred_prob = logistic_regression_model(x_train, x_test, y_train, y_test)
+
+    '''Evaluate the model'''
+    accuracy, conf_matrix, class_report, precision, recall, f1, auc_score = evaluate_model(y_test, y_pred, y_pred_prob)
     print("Accuracy:", accuracy)
     print("Confusion Matrix:\n", conf_matrix)
     print("Classification Report:\n", class_report)
     print("F1 Score:", f1)
     print("AUC Score:", auc_score)
 
+    '''testing'''
     test_data = read_csv("Heartdisease1.csv")
     rename_columns(test_data)
     test_data = encode_categorical_features(test_data)
 
+    df_predict = test_data.drop(columns=['HadHeartAttack'])
 
-   """ # Drop the 'HadHeartAttack' column if it exists"""
-    if 'HadHeartAttack' in test_data.columns:
-        df_predict = test_data.drop(columns=['HadHeartAttack'])
+    '''Make predictions on the new data'''
+    new_predictions = model.predict(df_predict)
+    prediction_scores = model.predict_proba(df_predict)
+    print(df_predict.iloc[0])
 
-        """Make predictions on the new data"""
-        new_predictions = model.predict(df_predict)
-        prediction_scores = model.predict_proba(df_predict)
-        print(df_predict.iloc[0])
+    '''Print the actual and predicted values'''
+    result_df = pd.DataFrame({'Actual': test_data['HadHeartAttack'], 'Predicted': new_predictions})
 
+    '''Compute accuracy score'''
+    accuracy = accuracy_score(test_data['HadHeartAttack'], new_predictions)
+    print("Accuracy:", accuracy)
 
-        """Print the actual and predicted values"""
-        result_df = pd.DataFrame({'Actual': test_data['HadHeartAttack'], 'Predicted': new_predictions})
+    '''Print the result dataframe'''
+    print(result_df)
+    print(prediction_scores)
 
-        """Compute accuracy score"""
-        accuracy = accuracy_score(test_data['HadHeartAttack'], new_predictions)
-        print("Accuracy:", accuracy)
-
-        """Print the result dataframe"""
-        print(result_df)
-        print(prediction_scores)
-
-        features_used = df.columns.tolist()
-
-        print("Features used in the model:")
-        for feature in features_used:
-          print(feature)
-
-    """Save the model, preprocessing steps, and renaming columns together'"""
-    with open('heart_disease_model.pkl', 'wb') as f:
-      pickle.dump((model), f)
-
+    save_model_with_preprocessing(model, 'heart_disease_model.pkl')
 
 if __name__ == "__main__":
     main()
