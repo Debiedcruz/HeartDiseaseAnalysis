@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1k1yqgxHUhScnLhdMLRQIyN23d2nakGC1
 """
 
+# Commented out IPython magic to ensure Python compatibility.
 import pandas as pd
 import numpy as np
 import pickle
@@ -113,7 +114,7 @@ def drop_columns(df):
     if len(df.columns) == 0:
         raise ValueError("Cannot drop all columns, at least one column must remain.")
 
-def undersample_data(df, target, threshold_percentage, random_state=42):
+def under_sample(df, target, threshold_percentage, random_state=42):
     """Undersample the majority class to balance the dataset."""
     minority_class_len = len(df[df[target] == 1])
     undersampling_count = int(minority_class_len * threshold_percentage)
@@ -171,6 +172,21 @@ def main():
     target = 'HadHeartAttack'
     x = df.drop(columns=['HadHeartAttack'])
     y = df['HadHeartAttack']
+
+#     %matplotlib inline
+    rcParams['figure.figsize'] = 10, 6
+    warnings.filterwarnings('ignore')
+    sns.set(style="darkgrid")
+
+    # Undersampling
+    print(df[target].value_counts())
+
+    threshold_percentage = 2
+
+    under_sampled_df = under_sample(df, target, threshold_percentage)
+    print(under_sampled_df[target].value_counts())
+    x = under_sampled_df.loc[:, df.columns != target]
+    y = under_sampled_df.loc[:, df.columns == target]
 
     '''Split data into training and testing sets'''
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
