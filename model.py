@@ -170,8 +170,6 @@ def main():
 
     drop_columns(df)
     target = 'HadHeartAttack'
-    x = df.drop(columns=['HadHeartAttack'])
-    y = df['HadHeartAttack']
 
 #     %matplotlib inline
     rcParams['figure.figsize'] = 10, 6
