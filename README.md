@@ -25,6 +25,6 @@ Modules:
 Global variables:
 - loaded_model: Holds the trained heart disease prediction model loaded from 'heart_disease_model.pkl'.
 
-Note: This application assumes the existence of HTML templates 'index1.html' and 'result.html' in the
+Note: This application assumes the existence of HTML templates 'index.html' and 'result.html' in the
       same directory as this script. These templates are used for rendering the user interface.
 """
